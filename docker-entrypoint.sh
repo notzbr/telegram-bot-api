@@ -1,12 +1,7 @@
 #!/bin/sh
 set -e
 
-USERNAME=telegram-bot-api
-GROUPNAME=telegram-bot-api
-
-chown ${USERNAME}:${GROUPNAME} "${TELEGRAM_WORK_DIR}"
-
-DEFAULT_ARGS="--http-port=8081 --dir=${TELEGRAM_WORK_DIR} --temp-dir=${TELEGRAM_TEMP_DIR} --username=${USERNAME} --groupname=${GROUPNAME}"
+DEFAULT_ARGS="--http-port=8081 --dir=${TELEGRAM_WORK_DIR} --temp-dir=${TELEGRAM_TEMP_DIR}"
 CUSTOM_ARGS=""
 
 if [ -n "$TELEGRAM_API_ID" ]; then
