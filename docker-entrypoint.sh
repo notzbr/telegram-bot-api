@@ -6,13 +6,15 @@ GROUPNAME=telegram-bot-api
 
 chown ${USERNAME}:${GROUPNAME} "${TELEGRAM_WORK_DIR}"
 
-if [ -n "${1}" ]; then
-  exec "${*}"
-fi
-
 DEFAULT_ARGS="--http-port 8081 --dir=${TELEGRAM_WORK_DIR} --temp-dir=${TELEGRAM_TEMP_DIR} --username=${USERNAME} --groupname=${GROUPNAME}"
 CUSTOM_ARGS=""
 
+if [ -n "$TELEGRAM_API_ID" ]; then
+  CUSTOM_ARGS=" --api-id=${TELEGRAM_API_ID}"
+fi
+if [ -n "$TELEGRAM_API_HASH" ]; then
+  CUSTOM_ARGS="${CUSTOM_ARGS} --api-hash=$TELEGRAM_API_HASH"
+fi
 if [ -n "$TELEGRAM_LOG_FILE" ]; then
   CUSTOM_ARGS=" --log=${TELEGRAM_LOG_FILE}"
 fi
