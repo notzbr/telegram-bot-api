@@ -16,7 +16,7 @@ RUN cd telegram-bot-api \
 
 FROM alpine:3.17
 
-ENV TELEGRAM_WORK_DIR="/var/lib/telegram-bot-api" \
+ENV TELEGRAM_WORK_DIR="/telegram-bot-api" \
     TELEGRAM_TEMP_DIR="/tmp/telegram-bot-api"
 
 RUN apk add --no-cache --update openssl libstdc++

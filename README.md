@@ -11,7 +11,7 @@ If you've got any questions about bots or would like to report an issue with you
 Before start, you will need to obtain `api-id` and `api-hash` as described in https://core.telegram.org/api/obtaining_api_id and specify them using the `TELEGRAM_API_ID` and `TELEGRAM_API_HASH` environment variables.
 
 And then to start the Telegram Bot API all you need to do is
-`docker run -d -p 8081:8081 --name=telegram-bot-api --restart=always -v telegram-bot-api-data:/var/lib/telegram-bot-api -e TELEGRAM_API_ID=<api_id> -e TELEGRAM_API_HASH=<api-hash> aiogram/telegram-bot-api:latest`
+`docker run -d -p 8081:8081 --name=telegram-bot-api --restart=always -v telegram-bot-api-data:/telegram-bot-api -e TELEGRAM_API_ID=<api_id> -e TELEGRAM_API_HASH=<api-hash> notzbr/telegram-bot-api:latest`
 
 ## Configuration
 
@@ -27,11 +27,9 @@ Enable statistics HTTP endpoint.
 
 Usage: `-e TELEGRAM_STAT=1 -p 8082:8082` and then check that `curl http://<host>:8082` returns server statistic
 
-
 ### `TELEGRAM_FILTER`
 
 "<remainder>/<modulo>". Allow only bots with 'bot_user_id % modulo == remainder'
-
 
 ### `TELEGRAM_MAX_WEBHOOK_CONNECTIONS`
 
@@ -63,11 +61,9 @@ Use the `TELEGRAM_HTTP_IP_ADDRESS: "[::]"` parameter to listen on the ipv6 intra
 
 ## Start with persistent storage
 
-Server working directory is `/var/lib/telegram-bot-api` so if you want to persist the server data you can mount this folder as volume:
+Server working directory is `/telegram-bot-api` so if you want to persist the server data you can mount this folder as volume:
 
-`-v telegram-bot-api-data:/etc/telegram/bot/api`
-
-Note that all files in this directory will be owned by user `telegram-bot-api` and group `telegram-bot-api` (uid: `101`, gid: `101`, compatible with [nginx](https://hub.docker.com/_/nginx) image)
+`-v telegram-bot-api-data:/telegram-bot-api`
 
 ## Usage via docker stack deploy or docker-compose
 
@@ -76,14 +72,14 @@ version: '3.7'
 
 services:
   telegram-bot-api:
-    image: aiogram/telegram-bot-api:latest
+    image: notzbr/telegram-bot-api:latest
     environment:
-      TELEGRAM_API_ID: "<api-id>"
-      TELEGRAM_API_HASH: "<api-hash>"
+      TELEGRAM_API_ID: '<api-id>'
+      TELEGRAM_API_HASH: '<api-hash>'
     volumes:
-      - telegram-bot-api-data:/var/lib/telegram-bot-api
+      - telegram-bot-api-data:/telegram-bot-api
     ports:
-      - "8081:8081"
+      - '8081:8081'
 
 volumes:
   telegram-bot-api-data:
